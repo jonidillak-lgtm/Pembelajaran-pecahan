@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembelajaran Pecahan</title>
+    <style>
+      :root {
+        --green-700: #047857;
+        --green-600: #059669;
+        --yellow-400: #facc15;
+        --blue-600: #2563eb;
+        --red-600: #dc2626;
+        --gray-900: #111827;
+        --gray-700: #374151;
+        --white: #ffffff;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f0fdf4;
+        color: var(--gray-900);
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 80px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, var(--green-600), var(--green-700));
+        color: var(--white);
+        border-radius: 24px;
+        padding: 32px 24px;
+        box-shadow: 0 20px 45px rgba(4, 120, 87, 0.2);
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 3.3rem);
+      }
+
+      .subtitle {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        opacity: 0.95;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        margin-top: 28px;
+      }
+
+      .card {
+        background: var(--white);
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 8px 22px rgba(17, 24, 39, 0.08);
+      }
+
+      .card h2 {
+        margin-top: 0;
+        font-size: 1.35rem;
+      }
+
+      .fraction-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin: 18px 0;
+        font-weight: 700;
+        font-size: 2.4rem;
+      }
+
+      .fraction-box .top {
+        color: var(--blue-600);
+      }
+
+      .fraction-box .bottom {
+        color: var(--red-600);
+      }
+
+      .fraction-box .line {
+        width: 72px;
+        height: 4px;
+        background: var(--gray-700);
+        border-radius: 999px;
+      }
+
+      .demo {
+        margin-top: 26px;
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 8px 22px rgba(17, 24, 39, 0.08);
+      }
+
+      .slider-wrap {
+        margin-top: 16px;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--green-600);
+      }
+
+      .readout {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        font-size: 0.88rem;
+        color: var(--gray-700);
+      }
+
+      .info {
+        margin-top: 18px;
+        font-size: 1.06rem;
+        line-height: 1.7;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #dcfce7;
+        color: #166534;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        margin-top: 18px;
+      }
+
+      @media (max-width: 640px) {
+        .hero { padding: 22px 18px; }
+        .card { padding: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <section class="hero">
+        <h1>Petualangan Pecahan</h1>
+        <p class="subtitle">
+          Model pembelajaran pecahan interaktif untuk membantu memahami konsep pembilang,
+          penyebut, dan pecahan senilai dengan cara yang sederhana dan menyenangkan.
+        </p>
+      </section>
+
+      <div class="grid">
+        <article class="card">
+          <h2>Pecahan Dasar</h2>
+          <div class="fraction-box">
+            <span class="top" id="topNumber">3</span>
+            <div class="line"></div>
+            <span class="bottom" id="bottomNumber">4</span>
+          </div>
+          <p class="info">
+            Dalam pecahan <strong>3/4</strong>, angka 3 disebut <strong>pembilang</strong>
+            dan angka 4 disebut <strong>penyebut</strong>.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Contoh Praktis</h2>
+          <p class="info">
+            Jika sebuah kue dibagi menjadi 8 bagian sama besar dan 2 bagian dimakan,
+            maka bagian yang dimakan adalah <strong>2/8</strong>.
+          </p>
+          <div class="badge" id="fractionLabel">2/8</div>
+        </article>
+      </div>
+
+      <div class="demo">
+        <h2 style="margin-top: 0;">Coba ubah pecahan</h2>
+        <div class="slider-wrap">
+          <label for="fractionSlider">Pembilang</label>
+          <input id="fractionSlider" type="range" min="1" max="8" value="2" />
+          <div class="readout">
+            <span>1</span>
+            <span>8</span>
+          </div>
+        </div>
+        <p class="info" id="demoText">
+          Pecahan yang ditampilkan: <strong>2/8</strong>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const slider = document.getElementById('fractionSlider');
+      const topNumber = document.getElementById('topNumber');
+      const bottomNumber = document.getElementById('bottomNumber');
+      const fractionLabel = document.getElementById('fractionLabel');
+      const demoText = document.getElementById('demoText');
+
+      function updateFraction() {
+        const pembilang = Number(slider.value);
+        const penyebut = 8;
+
+        topNumber.textContent = pembilang;
+        bottomNumber.textContent = penyebut;
+        fractionLabel.textContent = `${pembilang}/${penyebut}`;
+        demoText.innerHTML = `Pecahan yang ditampilkan: <strong>${pembilang}/${penyebut}</strong>`;
+      }
+
+      slider.addEventListener('input', updateFraction);
+      updateFraction();
+    </script>
+  </body>
+</html>
