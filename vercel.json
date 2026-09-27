@@ -2,22 +2,5 @@
   "buildCommand": "echo 'Static site'",
   "outputDirectory": "public",
   "cleanUrls": false,
-  "trailingSlash": true,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/pengenalan_pecahan_interaktif (1).html"
-    }
-  ]
+  "trailingSlash": false
 }
